@@ -12,7 +12,7 @@
 	 */
 	public class Draw3DTest extends Sprite 
 	{
-		var g3d : Graphics3D;
+		public var g3d : Graphics3D;
 		private var isMouseDown : Boolean;
 
 		public function Draw3DTest()
@@ -24,7 +24,7 @@
 			g3d.moveTo(-10, 0, -10);
 			g3d.lineTo(10, 10, 10); 
 			
-			
+			g3d.drawCube(0, 0, 0, 100, 100, 100);
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown); 
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUp); 
@@ -43,7 +43,6 @@
 
 		public function mouseDown(e : MouseEvent) : void
 		{
-			
 			isMouseDown = true; 
 			g3d.moveTo2D(mouseX, mouseY, 0);
 		}
