@@ -7,7 +7,7 @@
 	public class Point3D 
 	{
 		
-		public static var fov : Number = 250; 
+		public static var fov : Number = 450; 
 		public static var DEG_TO_RAD : Number = Math.PI/180; 
 		
 		protected var _x : Number ; 

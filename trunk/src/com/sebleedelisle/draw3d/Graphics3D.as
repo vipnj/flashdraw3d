@@ -22,6 +22,13 @@
 		public function Graphics3D(target : DisplayObjectContainer)
 		{
 			target.addChild(this);
+			
+			// auto centre this - we probably want to change this sometime soon! 
+			// TODO make this independent so we can move the container around
+			x =  (stage.stageWidth/2);// / stage.scaleX ;
+			y =   (stage.stageHeight/2);// / stage.scaleY;
+			
+			
 			this.addEventListener(Event.ENTER_FRAME, enterFrame); 
 			
 			clear(); 
@@ -59,7 +66,37 @@
 			currentPointIndex = pointindex; 
 			
 		}
+		
+		public function drawCube(xpos : Number, ypos : Number, zpos : Number, width : Number, height : Number, depth : Number) : void
+		{
+			
+			var hw : Number = width*0.5; 
+			var hh : Number = height*0.5; 
+			var hd : Number = depth*0.5; 
+			
+			moveTo(xpos - hw, ypos - hh, zpos + hd);
+			lineTo(xpos + hw, ypos - hh, zpos + hd);
+			lineTo(xpos + hw, ypos - hh, zpos - hd);
+			lineTo(xpos - hw, ypos - hh, zpos - hd);
+			
+			moveTo(xpos + hw, ypos - hh, zpos + hd);
+			lineTo(xpos + hw, ypos + hh, zpos + hd);
+			lineTo(xpos + hw, ypos + hh, zpos - hd);
+			lineTo(xpos + hw, ypos - hh, zpos - hd);
+	
+			moveTo(xpos + hw, ypos + hh, zpos + hd);
+			lineTo(xpos - hw, ypos + hh, zpos + hd);
+			lineTo(xpos - hw, ypos + hh, zpos - hd);
+			lineTo(xpos + hw, ypos + hh, zpos - hd);
 
+			moveTo(xpos - hw, ypos + hh, zpos + hd);
+			lineTo(xpos - hw, ypos - hh, zpos + hd);
+			lineTo(xpos - hw, ypos - hh, zpos - hd);
+			lineTo(xpos - hw, ypos + hh, zpos - hd);
+			
+		}
+		
+		
 		public function enterFrame(e : Event) : void
 		{
 			
@@ -68,10 +105,6 @@
 			var p1 : Point3D; 
 			var p2 : Point3D; 
 			
-			// auto centre this - we probably want to change this sometime soon! 
-			// TODO make this independent so we can move the container around
-			x =  (stage.stageWidth/2);// / stage.scaleX ;
-			y =   (stage.stageHeight/2);// / stage.scaleY;
 			
 			g.clear(); 
 
@@ -103,8 +136,12 @@
 		private function addPoint(posx : Number, posy : Number, posz : Number) : int
 		{
 			// TODO add check for whether point already exists
+			
 			points.push(new Point3D(posx, posy, posz)); 
 			return points.length - 1; 
+		
+		
+		
 		}
 		
 		private function addPoint2D(x2d : Number, y2d : Number, z3d : Number) : int
@@ -115,6 +152,9 @@
 			return addPoint(x2d/(fov/(fov + z3d)), y2d/(fov/(fov + z3d)), z3d);
 			
 		}
+		
+		
+		
 		
 		public function rotateY(r : Number) : void
 		{
