@@ -23,6 +23,9 @@
 			g3d.lineStyle(1, 0xff0000, 1); 
 			g3d.moveTo(-10, 0, -10);
 			g3d.lineTo(10, 10, 10); 
+			
+			
+			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown); 
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUp); 
 			addEventListener(Event.ENTER_FRAME, enterFrame);
