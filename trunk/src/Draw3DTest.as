@@ -6,6 +6,7 @@
 	import com.sebleedelisle.draw3d.Graphics3D;
 
 	import flash.display.Sprite;
+	[SWF (width="550", height="400", frameRate="30", backgroundColor="#000000")]
 
 	/**
 	 * @author Seb Lee-Delisle
@@ -24,7 +25,11 @@
 			g3d.moveTo(-10, 0, -10);
 			g3d.lineTo(10, 10, 10); 
 			
-			g3d.drawCube(0, 0, 0, 100, 100, 100);
+			g3d.drawCube(0, 0, 0, 80, 80, 80);
+			
+			g3d.drawCube(100, 100, 0, 80, 80, 80);
+			
+			
 			
 			stage.addEventListener(MouseEvent.MOUSE_DOWN, mouseDown); 
 			stage.addEventListener(MouseEvent.MOUSE_UP, mouseUp); 
@@ -35,7 +40,7 @@
 		{
 			if(isMouseDown)
 			{
-				g3d.lineTo2D(mouseX, mouseY, 0);
+				g3d.lineTo2D(mouseX, mouseY, 100);
 			}
 			
 			g3d.rotateY(2);
