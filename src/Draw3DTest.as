@@ -40,7 +40,7 @@
 		{
 			if(isMouseDown)
 			{
-				g3d.lineTo2D(mouseX, mouseY, 100);
+				g3d.lineTo2D(mouseX, mouseY, 0);
 			}
 			
 			g3d.rotateY(2);
