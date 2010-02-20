@@ -154,8 +154,16 @@
 		}
 		
 		
+		// performs a destructive rotation on all points for X Y or Z axis. 
 		
-		
+		public function rotateX(r : Number) : void
+		{
+			for each(var point : Point3D in points)
+			{
+				point.rotateX (r); 
+				
+			}
+		}
 		public function rotateY(r : Number) : void
 		{
 			for each(var point : Point3D in points)
@@ -163,9 +171,18 @@
 				point.rotateY (r); 
 				
 			}
-			
-			
-			
 		}
+
+		public function rotateZ(r : Number) : void
+		{
+			for each(var point : Point3D in points)
+			{
+				point.rotateZ (r); 
+				
+			}
+		}
+		
+		
+		
 	}
 }
