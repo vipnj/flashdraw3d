@@ -7,10 +7,11 @@
  and some help from http://freespace.virgin.net/hugo.elias/models/m_perlin.htm
  AS3 optimizations by Mario Klingemann http://www.quasimondo.com
  */
+
 package nl.ronvalstar.math {
 	import flash.display.BitmapData;
 	
-	final public class OptimizedPerlin {
+	final public class OptimisedPerlin {
 		
 		private static const p:Array = [    
 			151,160,137,91,90,15,131,13,201,95,
