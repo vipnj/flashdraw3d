@@ -1,45 +1,48 @@
 ﻿package com.sebleedelisle.draw3d 
 {
-
+	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Graphics;
 	import flash.display.Sprite;
 	import flash.events.Event;
-
+	
 	/**
 	 * @author Seb Lee-Delisle
 	 */
 	public class Graphics3D extends Sprite 
 	{
-
+		
 		private var points : Array; 
 		private var lines : Array; 
 		
 		private var currentLineStyle : LineStyleData; 
 		private var currentPointIndex : int;
-
 		
-		public function Graphics3D(target : DisplayObjectContainer)
+		
+		public function Graphics3D(target:DisplayObjectContainer, width:Number, height:Number, 
+								   autoCentre:Boolean = true)
 		{
-			target.addChild(this);
+			// target.addChild(this);	leave it up to the target to do the adding
 			
-			// auto centre this - we probably want to change this sometime soon! 
-			// TODO make this independent so we can move the container around
-			x =  (stage.stageWidth/2);// / stage.scaleX ;
-			y =   (stage.stageHeight/2);// / stage.scaleY;
+			// if (!width) { width = target.stage.width; }
+			// if (!height) { height = target.stage.height; }
 			
+			if (autoCentre) {
+				x =  (width/2);// / stage.scaleX ;
+				y =  (height/2);// / stage.scaleY;
+			}
 			
 			this.addEventListener(Event.ENTER_FRAME, enterFrame); 
 			
 			clear(); 
 		}
-
+		
 		public function lineStyle(thickness : Number = 1, colour : int = 0x000000, alpha : Number = 1) : void
 		{
 			// TODO check to see if it's actually changed before making a new one!
 			currentLineStyle = new LineStyleData(thickness, colour, alpha);
 		}
-
+		
 		public function moveTo(posx : Number, posy : Number, posz : Number) : void
 		{
 			currentPointIndex = addPoint(posx, posy, posz);
@@ -52,12 +55,12 @@
 			lines.push(new Line3D(currentPointIndex, pointindex, currentLineStyle));
 			currentPointIndex = pointindex; 
 		}
-
+		
 		public function moveTo2D(x2d : Number, y2d : Number, z3d : Number) : void
 		{
 			currentPointIndex = addPoint2D(x2d, y2d, z3d);
 		}
-
+		
 		public function lineTo2D(x2d : Number, y2d : Number, z3d : Number) : void
 		{
 			
@@ -83,12 +86,12 @@
 			lineTo(xpos + hw, ypos + hh, zpos + hd);
 			lineTo(xpos + hw, ypos + hh, zpos - hd);
 			lineTo(xpos + hw, ypos - hh, zpos - hd);
-	
+			
 			moveTo(xpos + hw, ypos + hh, zpos + hd);
 			lineTo(xpos - hw, ypos + hh, zpos + hd);
 			lineTo(xpos - hw, ypos + hh, zpos - hd);
 			lineTo(xpos + hw, ypos + hh, zpos - hd);
-
+			
 			moveTo(xpos - hw, ypos + hh, zpos + hd);
 			lineTo(xpos - hw, ypos - hh, zpos + hd);
 			lineTo(xpos - hw, ypos - hh, zpos - hd);
@@ -107,12 +110,12 @@
 			
 			
 			g.clear(); 
-
+			
 			for each(var point : Point3D in points)
 			{
 				point.update(); 
 			}
-
+			
 			for each (var line : Line3D in lines)
 			{
 				ls = line.lineStyle; 
@@ -123,7 +126,7 @@
 				g.lineTo(p2.x2d, p2.y2d); 
 			}
 		}
-
+		
 		public function clear() : void
 		{
 			points = new Array(); 
@@ -132,16 +135,24 @@
 			currentLineStyle = new LineStyleData(); 
 			currentPointIndex = 0; 
 		}
-
+		
+		// mattp@zenbullets.com - less final way of clearing the canvas (with the intention of redrawing)
+		public function clearCanvas() : void
+		{
+			points = new Array(); 
+			lines = new Array(); 
+		}
+		
+		
 		private function addPoint(posx : Number, posy : Number, posz : Number) : int
 		{
 			// TODO add check for whether point already exists
 			
 			points.push(new Point3D(posx, posy, posz)); 
 			return points.length - 1; 
-		
-		
-		
+			
+			
+			
 		}
 		
 		private function addPoint2D(x2d : Number, y2d : Number, z3d : Number) : int
@@ -172,7 +183,7 @@
 				
 			}
 		}
-
+		
 		public function rotateZ(r : Number) : void
 		{
 			for each(var point : Point3D in points)
